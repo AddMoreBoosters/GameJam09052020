@@ -4,32 +4,62 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    private float _speed = 1f;
-    [SerializeField]
-    private float _rotationSpeed = 1f;
-    [SerializeField]
-    private Transform _camera;
-    private Rigidbody _rb;
+    private float _horizontalInput;
+    private float _verticalInput;
+    private float _steeringAngle;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private float _maxSteeringAngle = 30f;
+    [SerializeField]
+    private float _acceleration = 50f;
+
+    [SerializeField]
+    private WheelCollider _frontRightCollider, _frontLeftCollider, _backRightCollider, _backLeftCollider;
+    [SerializeField]
+    private Transform _frontRightTransform, _frontLeftTransform, _backRightTransform, _backLeftTransform;
+
+    private void FixedUpdate()
     {
-        _rb = GetComponent<Rigidbody>();
-        if (_rb == null)
-        {
-            Debug.LogError("No Rigidbody found, creating a new one");
-            _rb = new Rigidbody();
-        }
+        GetInput();
+        Steer();
+        Accelerate();
+        UpdateWheelPoses();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void GetInput()
     {
-        _rb.transform.Rotate(new Vector3(0f, 1f, 0f), Input.GetAxis("Mouse X") * _rotationSpeed);
-        _camera.transform.Rotate(new Vector3(1f, 0f, 0f), Input.GetAxis("Mouse Y") * _rotationSpeed);
+        _horizontalInput = Input.GetAxis("Horizontal");
+        _verticalInput = Input.GetAxis("Vertical");
+    }
 
-        Vector3 movementVector = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        _rb.transform.Translate(movementVector * _speed * Time.deltaTime, Space.Self);
+    private void Steer()
+    {
+        _steeringAngle = _maxSteeringAngle * _horizontalInput;
+        _frontLeftCollider.steerAngle = _steeringAngle;
+        _frontRightCollider.steerAngle = _steeringAngle;
+    }
+
+    private void Accelerate()
+    {
+        _frontLeftCollider.motorTorque = _acceleration * _verticalInput;
+        _frontRightCollider.motorTorque = _acceleration * _verticalInput;
+    }
+
+    private void UpdateWheelPoses()
+    {
+        UpdateWheelPose(_frontRightCollider, _frontRightTransform);
+        UpdateWheelPose(_frontLeftCollider, _frontLeftTransform);
+        UpdateWheelPose(_backRightCollider, _backRightTransform);
+        UpdateWheelPose(_backLeftCollider, _backLeftTransform);
+    }
+
+    private void UpdateWheelPose(WheelCollider _collider, Transform _transform)
+    {
+        Vector3 pos = _transform.position;
+        Quaternion quat = _transform.rotation;
+
+        _collider.GetWorldPose(out pos, out quat);
+
+        _transform.SetPositionAndRotation(pos, quat);
     }
 }
