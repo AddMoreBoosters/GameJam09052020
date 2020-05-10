@@ -43,6 +43,12 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("TimeTrial");
     }
 
+    public void ReturnToMainMenu ()
+    {
+        DisableMenu();
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void QuitGame ()
     {
         DisableMenu();
