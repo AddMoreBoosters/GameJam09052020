@@ -46,8 +46,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Accelerate()
     {
-        _frontLeftCollider.motorTorque = _acceleration * _verticalInput;
-        _frontRightCollider.motorTorque = _acceleration * _verticalInput;
+        _backLeftCollider.motorTorque = _acceleration * _verticalInput;
+        _backRightCollider.motorTorque = _acceleration * _verticalInput;
     }
 
     private void UpdateWheelPoses()

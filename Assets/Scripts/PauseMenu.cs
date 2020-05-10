@@ -8,11 +8,13 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField]
     private GameObject _menu;
+    [SerializeField]
+    private Button _defaultSelectedButton;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7))
+        if (Input.GetButtonDown("Menu (Start)"))
         {
             if (_menu.activeInHierarchy == true)
             {
@@ -29,6 +31,8 @@ public class PauseMenu : MonoBehaviour
     {
         _menu.SetActive(true);
         Time.timeScale = 0f;
+
+        _defaultSelectedButton.Select();
     }
 
     public void DisableMenu ()
