@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 3160851261641513824}
   - component: {fileID: 3573268392919060065}
   - component: {fileID: 8726017055683289447}
+  - component: {fileID: 1817714244}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -167,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxSteeringAngle: 30
-  _acceleration: 500
+  _acceleration: 750
   _frontRightCollider: {fileID: 4446162182330541128}
   _frontLeftCollider: {fileID: 8005188521043111250}
   _backRightCollider: {fileID: 5681682741782769134}
@@ -205,6 +206,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 3}
   m_Center: {x: 0, y: 0.7, z: 0}
+--- !u!114 &1817714244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715309192592618069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d5cbb90b7e760d4ebd66210099f5fca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nextCheckpoint: {fileID: 0}
+  _elapsedTime: 0
+  _timerRunning: 1
 --- !u!1 &1020776208067753303
 GameObject:
   m_ObjectHideFlags: 0

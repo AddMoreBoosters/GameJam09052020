@@ -26,6 +26,11 @@ public class PlayerMovement : MonoBehaviour
         UpdateWheelPoses();
     }
 
+    public float GetAccelerationInput ()
+    {
+        return _verticalInput;
+    }
+
     private void GetInput()
     {
         _horizontalInput = Input.GetAxis("Horizontal");
